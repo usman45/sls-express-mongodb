@@ -1,0 +1,9 @@
+node_modules/
+build/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Yarn lock
+yarn.lock

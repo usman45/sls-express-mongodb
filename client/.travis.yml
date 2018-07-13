@@ -1,0 +1,33 @@
+sudo: false
+dist: trusty
+
+language: node_js
+node_js:
+  - '8.10'
+
+addons:
+  chrome: stable
+
+install:
+  - rm -rf node_modules
+  - yarn
+
+script:
+  - yarn prettier:verify
+  - yarn build
+  - yarn test --runInBand
+  - yarn lint
+
+cache:
+  # Disabled for now, see https://github.com/yarnpkg/yarn/issues/1981
+  yarn: true
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
+
+# Build only master branch to save resources
+branches:
+  only:
+    - master
