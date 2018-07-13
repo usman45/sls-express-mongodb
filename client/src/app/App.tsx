@@ -1,9 +1,9 @@
-import * as React from 'react';
-import './App.css';
-import { Provider } from 'react-redux';
-import { Store } from 'redux';
-import configureStore from './store';
-import { RootState } from './state.interface';
+import * as React from "react";
+import "./App.css";
+import { Provider } from "react-redux";
+import { Store } from "redux";
+import configureStore from "./store";
+import { RootState } from "./state.interface";
 
 const store: Store<RootState> = configureStore(undefined as any);
 

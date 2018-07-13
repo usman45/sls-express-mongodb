@@ -16,7 +16,8 @@
     "lint": "tslint --project tsconfig.json",
     "test": "node scripts/test.js --env=jsdom",
     "precommit": "pretty-quick",
-    "prettier:verify": "prettier --list-different '**/*.{js,json,md,scss,ts,tsx,css}'"
+    "prettier:verify":
+      "prettier --list-different '**/*.{js,json,md,scss,ts,tsx,css}'"
   },
   "lint-staged": {
     "**/*.{js,json,md,scss,ts,tsx,css}": "npx prettier --list-different"
