@@ -1,6 +1,23 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import "./index.css";
-import Hello from './components/Hello';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import App from './app/App';
+import './index.css';
 
-ReactDOM.render(<Hello name="TypeScript" enthusiasmLevel={10} />, document.getElementById("root"));
+const rootElem = document.getElementById('root') as HTMLElement;
+
+ReactDOM.render(<App />, rootElem);
+
+declare global {
+  interface NodeModule {
+    hot?: {
+      accept: Function;
+    };
+  }
+}
+
+if (module.hot) {
+  module.hot.accept('./app/App', () => {
+    const NextApp = require('./app/App').default;
+    ReactDOM.render(<NextApp />, rootElem);
+  });
+}

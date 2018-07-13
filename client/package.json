@@ -16,8 +16,7 @@
     "lint": "tslint --project tsconfig.json",
     "test": "node scripts/test.js --env=jsdom",
     "precommit": "pretty-quick",
-    "prettier:verify":
-      "prettier --list-different '**/*.{js,json,md,scss,ts,tsx,css}'"
+    "prettier:verify": "prettier --list-different '**/*.{js,json,md,scss,ts,tsx,css}'"
   },
   "lint-staged": {
     "**/*.{js,json,md,scss,ts,tsx,css}": "npx prettier --list-different"
@@ -66,6 +65,7 @@
     "react-dev-utils": "5.0.1",
     "react-router": "4.2.0",
     "redux": "3.7.2",
+    "react-redux": "5.0.7",
     "redux-mock-store": "1.5.1",
     "redux-thunk": "2.2.0",
     "rimraf": "2.6.2",
