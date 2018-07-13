@@ -1,0 +1,81 @@
+#---------------------------------
+# Directories
+#---------------------------------
+node_modules/
+target
+/styleguide/styles.css
+tmp/
+/coverage
+protractorFailuresReport
+
+
+#---------------------------------
+# Extensions
+#---------------------------------
+*.gz
+*.log
+*.rar
+*.tar
+*.zip
+*.swp
+
+#---------------------------------
+# IDE generated
+#---------------------------------
+.idea/
+.project
+*.iml
+.vscode/
+
+
+#---------------------------------
+# OS generated
+#---------------------------------
+__MACOSX/
+.DS_Store
+Thumbs.db
+
+#---------------------------------
+# Dotenv
+#---------------------------------
+.env
+
+#---------------------------------
+# Lock files
+#---------------------------------
+*.lock
+!yarn.lock
+=======
+
+#---------------------------------
+# Webback
+#---------------------------------
+.awcache
+ngc-build
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+#---------------------------------
+# Serverless 
+#---------------------------------
+.serverless
+
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

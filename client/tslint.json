@@ -1,0 +1,9 @@
+{
+  "extends": ["tslint-react", "tslint-config-prettier"],
+  "jsRules": {
+    "no-empty": true
+  },
+  "rules": {
+    "interface-name": [true, "never-prefix"]
+  }
+}
