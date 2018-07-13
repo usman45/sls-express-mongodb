@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Provider } from 'react-redux';
-import { Store } from 'redux';
-import configureStore from './store';
-import { RootState } from './state.interface';
-import AppWrapper from '../modules/AppWrapper';
-import HomeScreen from '../modules/HomeScreen';
+import * as React from "react";
+import { Provider } from "react-redux";
+import { Store } from "redux";
+import configureStore from "./store";
+import { RootState } from "./state.interface";
+import AppWrapper from "../modules/AppWrapper";
+import HomeScreen from "../modules/HomeScreen";
 
 const store: Store<RootState> = configureStore(undefined as any);
 

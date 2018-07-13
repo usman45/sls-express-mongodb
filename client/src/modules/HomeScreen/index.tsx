@@ -1,8 +1,8 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import { PrimaryButton } from '../../common/buttons';
-import { Centered } from '../../common/layout';
-import { Ingress, PageTitle } from '../../common/type';
+import * as React from "react";
+import styled from "styled-components";
+import { PrimaryButton } from "../../common/buttons";
+import { Centered } from "../../common/layout";
+import { Ingress, PageTitle } from "../../common/type";
 
 const IngressWithMargins = styled(Ingress)`
   margin-top: 2em;
@@ -10,10 +10,9 @@ const IngressWithMargins = styled(Ingress)`
 `;
 
 export const TEXTS = {
-  title: 'Welcome to your app',
-  ingress:
-    'This portal gives you quick access to view and edit your profile.',
-  login: 'Login',
+  title: "Welcome to your app",
+  ingress: "This portal gives you quick access to view and edit your profile.",
+  login: "Login"
 };
 
 export default () => (
