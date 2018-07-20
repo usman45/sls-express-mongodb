@@ -2,8 +2,7 @@ import { Dispatch } from "react-redux";
 import { RootState } from "../../app/state.interface";
 
 export const FETCH_NOTES_INIT_DATA_START = "FETCH_NOTES_INIT_DATA_START";
-export const FETCH_NOTES_INIT_DATA_SUCCESS =
-  "FETCH_NOTES_INIT_DATA_SUCCESS";
+export const FETCH_NOTES_INIT_DATA_SUCCESS = "FETCH_NOTES_INIT_DATA_SUCCESS";
 const QUOTE_SERVICE_URL = "http://localhost:3000/api/notes";
 
 async function getNotes() {
