@@ -1,24 +1,53 @@
 import * as React from "react";
-import styled from "styled-components";
-import { PrimaryButton } from "../../common/buttons";
-import { Centered } from "../../common/layout";
-import { Ingress, PageTitle } from "../../common/type";
 
-const IngressWithMargins = styled(Ingress)`
-  margin-top: 2em;
-  margin-bottom: 2em;
-`;
+const QUOTE_SERVICE_URL = "http://localhost:3000/api/notes";
 
-export const TEXTS = {
-  title: "Welcome to your app",
-  ingress: "This portal gives you quick access to view and edit your profile.",
-  login: "Login"
+export type IMyComponentProps = {
+  someDefaultValue?: string;
 };
 
-export default () => (
-  <Centered>
-    <PageTitle>{TEXTS.title}</PageTitle>
-    <IngressWithMargins>{TEXTS.ingress}</IngressWithMargins>
-    <PrimaryButton>{TEXTS.login}</PrimaryButton>
-  </Centered>
-);
+export type IMyComponentState = {
+  isFetching: boolean;
+  notes: any;
+};
+
+export default class HomeScreen extends React.Component<
+  IMyComponentProps,
+  IMyComponentState
+> {
+  constructor(props: IMyComponentProps) {
+    super(props);
+    this.state = { isFetching: false, notes: [] };
+  }
+
+  render() {
+    const { isFetching, notes } = this.state;
+    if (!notes) {
+      return;
+    }
+    return (
+      <div className="App">
+        <ul>
+          {notes.map(hit => (
+            <li key={hit.title}>
+              {hit.title}
+              {isFetching}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    this.fetchQuotesWithFetch();
+  }
+
+  fetchQuotesWithFetch = () => {
+    this.setState({ ...this.state, isFetching: true });
+    fetch(QUOTE_SERVICE_URL)
+      .then(response => response.json())
+      .then(result => this.setState({ notes: result, isFetching: false }))
+      .catch(e => console.log(e));
+  };
+}
