@@ -37,7 +37,13 @@ export default class HomeScreen extends React.Component<
     }
     return (
       <div className="App">
-        <ul>{notes.map(hit => <li key={hit.title}>{hit.title} {hit.description}</li>)}</ul>
+        <ul>
+          {notes.map(hit => (
+            <li key={hit.title}>
+              {hit.title} {hit.description}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
