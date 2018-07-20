@@ -6,9 +6,15 @@ export type IMyComponentProps = {
   someDefaultValue?: string;
 };
 
+interface Notes {
+  title: string;
+  description: string;
+}
+
 export type IMyComponentState = {
   isFetching: boolean;
-  notes: any;
+  notes: Array<Notes>;
+  error: any;
 };
 
 export default class HomeScreen extends React.Component<
@@ -17,24 +23,21 @@ export default class HomeScreen extends React.Component<
 > {
   constructor(props: IMyComponentProps) {
     super(props);
-    this.state = { isFetching: false, notes: [] };
+    this.state = { isFetching: false, notes: [], error: null };
   }
 
   render() {
-    const { isFetching, notes } = this.state;
-    if (!notes) {
-      return;
+    const { isFetching, notes, error } = this.state;
+    if (error) {
+      return <p>{error.message}</p>;
+    }
+
+    if (isFetching) {
+      return <p>Loading ...</p>;
     }
     return (
       <div className="App">
-        <ul>
-          {notes.map(hit => (
-            <li key={hit.title}>
-              {hit.title}
-              {isFetching}
-            </li>
-          ))}
-        </ul>
+        <ul>{notes.map(hit => <li key={hit.title}>{hit.title} {hit.description}</li>)}</ul>
       </div>
     );
   }
@@ -46,8 +49,14 @@ export default class HomeScreen extends React.Component<
   fetchQuotesWithFetch = () => {
     this.setState({ ...this.state, isFetching: true });
     fetch(QUOTE_SERVICE_URL)
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong ...");
+        }
+      })
       .then(result => this.setState({ notes: result, isFetching: false }))
-      .catch(e => console.log(e));
+      .catch(error => this.setState({ error, isFetching: false }));
   };
 }
