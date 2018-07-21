@@ -22,8 +22,7 @@
     "lint": "tslint --project tsconfig.json",
     "test": "node scripts/test.js --env=jsdom",
     "precommit": "pretty-quick",
-    "prettier:verify":
-      "prettier --list-different '**/*.{js,json,md,scss,ts,tsx,css}'"
+    "prettier:verify": "prettier --list-different '**/*.{js,json,md,scss,ts,tsx,css}'"
   },
   "lint-staged": {
     "**/*.{js,json,md,scss,ts,tsx,css}": "npx prettier --list-different"
@@ -34,7 +33,6 @@
     "@types/enzyme": "3.1.9",
     "@types/jest": "22.2.2",
     "@types/node": "9.6.2",
-    "@types/react": "16.3.5",
     "@types/react-dom": "16.0.4",
     "@types/react-redux": "5.0.15",
     "@types/react-router": "4.0.23",
@@ -88,7 +86,9 @@
     "webpack-manifest-plugin": "1.3.2"
   },
   "jest": {
-    "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}"
+    ],
     "setupFiles": [
       "<rootDir>/config/polyfills.js",
       "<rootDir>/config/test-config.js"
@@ -102,8 +102,7 @@
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)":
-        "<rootDir>/config/jest/fileTransform.js"
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"
@@ -131,7 +130,9 @@
     }
   },
   "babel": {
-    "presets": ["react-app"]
+    "presets": [
+      "react-app"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
