@@ -7,7 +7,7 @@ import AppWrapper from "../modules/AppWrapper";
 import HomeScreen from "../modules/HomeScreen";
 import { Header } from "../modules/Header/index";
 import { Redirect, Route, RouteProps, Router, Switch } from "react-router";
-import NotesScreen  from "../modules/Notes";
+import NotesScreen from "../modules/Notes";
 import createHistory from "history/createBrowserHistory";
 const store: Store<RootState> = configureStore(undefined as any);
 
