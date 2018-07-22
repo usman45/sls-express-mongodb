@@ -34,41 +34,40 @@ export const fetchNotesInitDataSuccess = notes => ({
 
 export const setNotesStart = () => ({
   type: START_NOTES_REQUEST,
-  payload: undefined,
+  payload: undefined
 });
 
 export const setNotesSuccess = () => ({
   type: SUCCESS_NOTES_REQUEST,
-  payload: undefined,
+  payload: undefined
 });
 
 export const setNotesFailed = () => ({
   type: FAILED_NOTES_REQUEST,
-  payload: undefined,
+  payload: undefined
 });
 
 export const sendNotesToApi = async (notes): Promise<void> => {
   const apiResponse = await fetch(NOTE_SERVICE_URL, {
-    method: 'POST',
-    body: JSON.stringify(
-      {
-        title: 'test',
-        description: 'testing'
-      }
-    ),
+    method: "POST",
+    body: JSON.stringify({
+      title: "test",
+      description: "testing"
+    })
   });
   if (apiResponse.status !== 204) {
-    throw new Error(`Request failed: non-204 response from API: [${apiResponse.status}]`);
+    throw new Error(
+      `Request failed: non-204 response from API: [${apiResponse.status}]`
+    );
   }
 };
-
 
 export function createSubmitNotesAction(notes) {
   console.log(notes);
   const test = {
-    title: 'test',
-    description: 'testing'
-  }
+    title: "test",
+    description: "testing"
+  };
   return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
     try {
       dispatch(setNotesStart());

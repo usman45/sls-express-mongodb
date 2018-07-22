@@ -2,7 +2,10 @@ import * as React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { RootState } from "../../app/state.interface";
-import { createFetchDataFromBackendAction, createSubmitNotesAction } from "./NotesActions";
+import {
+  createFetchDataFromBackendAction,
+  createSubmitNotesAction
+} from "./NotesActions";
 import { PrimaryButton } from "../../common/buttons";
 
 export type NotesProps = {
@@ -19,20 +22,18 @@ export type ComponentState = {
 export class NotesScreen extends React.Component<NotesProps, ComponentState> {
   constructor(props: NotesProps) {
     super(props);
-    this.state = { isFetching: false, inputValue: '' };
+    this.state = { isFetching: false, inputValue: "" };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-
 
   componentDidMount() {
     this.props.fetchNotesWithFetch();
   }
 
   handleSubmit(event) {
-    console.log('Form value: ' + this.state.inputValue);
+    console.log("Form value: " + this.state.inputValue);
     event.preventDefault();
     this.props.handleSubmitNewNote(this.state.inputValue);
   }
@@ -40,8 +41,7 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
   handleChange(event) {
     this.setState({
       inputValue: event.target.value
-    })
-
+    });
   }
   render() {
     if (!this.props.notes) {
@@ -57,8 +57,14 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
           ))}
         </ul>
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <input type="text" value={this.state.inputValue} onChange={this.handleChange} />
-          <PrimaryButton type="submit" value="Submit">Add new</PrimaryButton>
+          <input
+            type="text"
+            value={this.state.inputValue}
+            onChange={this.handleChange}
+          />
+          <PrimaryButton type="submit" value="Submit">
+            Add new
+          </PrimaryButton>
         </form>
       </div>
     );
@@ -75,9 +81,9 @@ export const notesScreenDispatchToProps = (dispatch: Dispatch<RootState>) => {
     fetchNotesWithFetch: () => {
       dispatch(createFetchDataFromBackendAction());
     },
-    handleSubmitNewNote: (notes) => {
+    handleSubmitNewNote: notes => {
       dispatch(createSubmitNotesAction(notes));
-    },
+    }
   };
 };
 
