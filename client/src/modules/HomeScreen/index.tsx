@@ -1,7 +1,5 @@
 import * as React from "react";
-import {MainContainer} from "../../common/layout";
-
-
+import { MainContainer } from "../../common/layout";
 
 const HomeScreen = () => (
   <MainContainer>

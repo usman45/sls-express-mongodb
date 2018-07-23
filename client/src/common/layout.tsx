@@ -9,7 +9,6 @@ export const MainContainer = styled.div`
   grid-template-columns: 1fr;
 `;
 
-
 export const Centered = styled.div`
   text-align: center;
 `;
