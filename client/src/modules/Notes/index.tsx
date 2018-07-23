@@ -92,7 +92,6 @@ export const notesScreenDispatchToProps = (dispatch: Dispatch<RootState>) => {
   };
 };
 
-export default connect(
-  notesStateToProps,
-  notesScreenDispatchToProps
-)(NotesScreen);
+export default connect(notesStateToProps, notesScreenDispatchToProps)(
+  NotesScreen
+);
