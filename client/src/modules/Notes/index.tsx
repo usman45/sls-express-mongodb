@@ -9,38 +9,35 @@ import {
 import { PrimaryButton } from "../../common/buttons";
 
 export type NotesProps = {
-  fetchNotesWithFetch: () => void;
+  fetchNotes: () => void;
   notes: any;
-  handleSubmitNewNote: (title, description) => void;
+  handleSubmitNewNote: (title: string, description: string) => void;
 };
 
 export type ComponentState = {
-  isFetching: boolean;
-  inputTitle: string;
-  inputDescription: string;
+  isLoading: boolean;
+  title: string;
+  description: string;
 };
 
 export class NotesScreen extends React.Component<NotesProps, ComponentState> {
   constructor(props: NotesProps) {
     super(props);
-    this.state = { isFetching: false, inputTitle: "", inputDescription: "" };
+    this.state = { isLoading: false, title: "", description: "" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchNotesWithFetch();
+    this.props.fetchNotes();
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: React.FormEvent<EventTarget>) {
     event.preventDefault();
-    this.props.handleSubmitNewNote(
-      this.state.inputTitle,
-      this.state.inputDescription
-    );
+    this.props.handleSubmitNewNote(this.state.title, this.state.description);
   }
 
-  handleChange(evt) {
+  handleChange(evt: any) {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
@@ -57,17 +54,17 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
             </li>
           ))}
         </ul>
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
-            name="inputTitle"
-            value={this.state.inputTitle}
+            name="title"
+            value={this.state.title}
             onChange={this.handleChange}
           />
           <input
             type="text"
-            name="inputDescription"
-            value={this.state.inputDescription}
+            name="description"
+            value={this.state.description}
             onChange={this.handleChange}
           />
           <PrimaryButton type="submit" value="Submit">
@@ -86,7 +83,7 @@ export const notesStateToProps = (state: RootState) => {
 };
 export const notesScreenDispatchToProps = (dispatch: Dispatch<RootState>) => {
   return {
-    fetchNotesWithFetch: () => {
+    fetchNotes: () => {
       dispatch(createFetchDataFromBackendAction());
     },
     handleSubmitNewNote: (title, description) => {
@@ -95,6 +92,7 @@ export const notesScreenDispatchToProps = (dispatch: Dispatch<RootState>) => {
   };
 };
 
-export default connect(notesStateToProps, notesScreenDispatchToProps)(
-  NotesScreen
-);
+export default connect(
+  notesStateToProps,
+  notesScreenDispatchToProps
+)(NotesScreen);

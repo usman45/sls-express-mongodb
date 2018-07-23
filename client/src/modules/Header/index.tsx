@@ -1,5 +1,5 @@
 import * as React from "react";
-import { HeaderDiv, Menu, Item, Submenu } from "./_view/index";
+import { HeaderDiv, Menu, Item } from "./_view/index";
 
 export const Header = () => (
   <HeaderDiv>
@@ -7,8 +7,5 @@ export const Header = () => (
       <Item className="finnair-emblem" />
       <Item className="language" />
     </Menu>
-    <Submenu>
-      <span className="back-arrow" />
-    </Submenu>
   </HeaderDiv>
 );

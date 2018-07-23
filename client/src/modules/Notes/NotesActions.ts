@@ -14,14 +14,6 @@ async function getNotes() {
   return await response.json();
 }
 
-export function createFetchDataFromBackendAction() {
-  return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
-    dispatch(fetchConsentInitDataStart());
-    const notes: any = await getNotes();
-    dispatch(fetchNotesInitDataSuccess(notes));
-  };
-}
-
 export const fetchConsentInitDataStart = () => ({
   type: FETCH_NOTES_INIT_DATA_START,
   payload: undefined
@@ -31,6 +23,14 @@ export const fetchNotesInitDataSuccess = notes => ({
   type: FETCH_NOTES_INIT_DATA_SUCCESS,
   payload: notes
 });
+
+export function createFetchDataFromBackendAction() {
+  return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
+    dispatch(fetchConsentInitDataStart());
+    const notes: any = await getNotes();
+    dispatch(fetchNotesInitDataSuccess(notes));
+  };
+}
 
 export const setNotesStart = () => ({
   type: START_NOTES_REQUEST,
@@ -66,7 +66,7 @@ export const sendNotesToApi = async (title, description): Promise<void> => {
   }
 };
 
-export function createSubmitNotesAction(title, description) {
+export function createSubmitNotesAction(title: string, description: string) {
   return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
     try {
       dispatch(setNotesStart());
