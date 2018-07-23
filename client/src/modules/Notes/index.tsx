@@ -1,29 +1,26 @@
 import * as React from "react";
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
-import { RootState } from "../../app/state.interface";
-import {
-  createFetchDataFromBackendAction,
-  createSubmitNotesAction
-} from "./NotesActions";
-import { PrimaryButton } from "../../common/buttons";
+import {Dispatch} from "redux";
+import {connect} from "react-redux";
+import {RootState} from "../../app/state.interface";
+import {createFetchDataFromBackendAction, createSubmitNotesAction} from "./NotesActions";
+import {PrimaryButton} from "../../common/buttons";
 
 export type NotesProps = {
   fetchNotesWithFetch: () => void;
   notes: any;
-  handleSubmitNewNote: (notes) => void;
+  handleSubmitNewNote: (title, description) => void;
 };
 
 export type ComponentState = {
   isFetching: boolean;
-  inputValue: string;
+  inputTitle: string;
+  inputDescription: string;
 };
 
 export class NotesScreen extends React.Component<NotesProps, ComponentState> {
   constructor(props: NotesProps) {
     super(props);
-    this.state = { isFetching: false, inputValue: "" };
-
+    this.state = { isFetching: false, inputTitle: "", inputDescription: "" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -33,16 +30,17 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
   }
 
   handleSubmit(event) {
-    console.log("Form value: " + this.state.inputValue);
     event.preventDefault();
-    this.props.handleSubmitNewNote(this.state.inputValue);
+    this.props.handleSubmitNewNote(
+      this.state.inputTitle,
+      this.state.inputDescription
+    );
   }
 
-  handleChange(event) {
-    this.setState({
-      inputValue: event.target.value
-    });
+  handleChange(evt) {
+    this.setState({ [evt.target.name]: evt.target.value });
   }
+
   render() {
     if (!this.props.notes) {
       return;
@@ -51,7 +49,7 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
       <div className="App">
         <ul>
           {this.props.notes.map(hit => (
-            <li key={hit.title}>
+            <li key={hit._id}>
               {hit.title} {hit.description}
             </li>
           ))}
@@ -59,7 +57,14 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input
             type="text"
-            value={this.state.inputValue}
+            name="inputTitle"
+            value={this.state.inputTitle}
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            name="inputDescription"
+            value={this.state.inputDescription}
             onChange={this.handleChange}
           />
           <PrimaryButton type="submit" value="Submit">
@@ -81,12 +86,13 @@ export const notesScreenDispatchToProps = (dispatch: Dispatch<RootState>) => {
     fetchNotesWithFetch: () => {
       dispatch(createFetchDataFromBackendAction());
     },
-    handleSubmitNewNote: notes => {
-      dispatch(createSubmitNotesAction(notes));
+    handleSubmitNewNote: (title, description) => {
+      dispatch(createSubmitNotesAction(title, description));
     }
   };
 };
 
-export default connect(notesStateToProps, notesScreenDispatchToProps)(
-  NotesScreen
-);
+export default connect(
+  notesStateToProps,
+  notesScreenDispatchToProps
+)(NotesScreen);

@@ -47,31 +47,30 @@ export const setNotesFailed = () => ({
   payload: undefined
 });
 
-export const sendNotesToApi = async (notes): Promise<void> => {
+export const sendNotesToApi = async (title, description): Promise<void> => {
   const apiResponse = await fetch(NOTE_SERVICE_URL, {
     method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
-      title: "test",
-      description: "testing"
+      title: title,
+      description: description
     })
   });
-  if (apiResponse.status !== 204) {
+  if (apiResponse.status !== 200) {
     throw new Error(
-      `Request failed: non-204 response from API: [${apiResponse.status}]`
+      `Request failed: non-200-response from API: [${apiResponse.status}]`
     );
   }
 };
 
-export function createSubmitNotesAction(notes) {
-  console.log(notes);
-  const test = {
-    title: "test",
-    description: "testing"
-  };
+export function createSubmitNotesAction(title, description) {
   return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
     try {
       dispatch(setNotesStart());
-      await sendNotesToApi(test);
+      await sendNotesToApi(title, description);
       dispatch(setNotesSuccess());
     } catch (err) {
       // tslint:disable-next-line:no-console
