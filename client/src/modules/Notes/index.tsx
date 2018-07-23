@@ -7,6 +7,8 @@ import {
   createSubmitNotesAction
 } from "./NotesActions";
 import { PrimaryButton } from "../../common/buttons";
+import { MainContainer } from "../../common/layout";
+import styled from "styled-components";
 
 export type NotesProps = {
   fetchNotes: () => void;
@@ -19,6 +21,15 @@ export type ComponentState = {
   title: string;
   description: string;
 };
+
+export const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const StyledInput = styled.input`
+  margin: 20px;
+`;
 
 export class NotesScreen extends React.Component<NotesProps, ComponentState> {
   constructor(props: NotesProps) {
@@ -46,7 +57,7 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
       return;
     }
     return (
-      <div className="App">
+      <MainContainer>
         <ul>
           {this.props.notes.map(hit => (
             <li key={hit._id}>
@@ -54,14 +65,14 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
             </li>
           ))}
         </ul>
-        <form onSubmit={this.handleSubmit}>
-          <input
+        <StyledForm onSubmit={this.handleSubmit}>
+          <StyledInput
             type="text"
             name="title"
             value={this.state.title}
             onChange={this.handleChange}
           />
-          <input
+          <StyledInput
             type="text"
             name="description"
             value={this.state.description}
@@ -70,8 +81,8 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
           <PrimaryButton type="submit" value="Submit">
             Add new
           </PrimaryButton>
-        </form>
-      </div>
+        </StyledForm>
+      </MainContainer>
     );
   }
 }
@@ -92,6 +103,7 @@ export const notesScreenDispatchToProps = (dispatch: Dispatch<RootState>) => {
   };
 };
 
-export default connect(notesStateToProps, notesScreenDispatchToProps)(
-  NotesScreen
-);
+export default connect(
+  notesStateToProps,
+  notesScreenDispatchToProps
+)(NotesScreen);

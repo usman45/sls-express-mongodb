@@ -49,6 +49,7 @@ export const styles = {
   value: {
     rounding: "4px",
     roundingSmall: "2px",
+    headerHeight: "3.5rem", // TODO: use rem?
     footerHeight: "56px", // TODO: use rem?
     paddingTop: "6.25rem",
     margin: "0.4rem",

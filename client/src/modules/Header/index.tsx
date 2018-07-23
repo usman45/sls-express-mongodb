@@ -4,8 +4,9 @@ import { HeaderDiv, Menu, Item } from "./_view/index";
 export const Header = () => (
   <HeaderDiv>
     <Menu>
-      <Item className="finnair-emblem" />
-      <Item className="language" />
+        <Item>Home</Item>
+        <Item>About</Item>
+        <Item>Contact</Item>
     </Menu>
   </HeaderDiv>
 );
