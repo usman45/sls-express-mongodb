@@ -14,13 +14,20 @@ export const Menu = styled.ul`
   padding: 0;
   display: flex;
   height: ${value.headerHeight};
-  justify-content: space-between;
-  align-items: center;
 `;
 
 export const Item = styled.li`
-  text-decoration: none;
   display: block;
   color: ${color.white};
   margin: ${spacing.small};
+  flex: 0 0 auto;
+
+  &:nth-child(1) {
+    margin-right: auto;
+  }
+`;
+
+export const StyledLinkTag = styled.a`
+  text-decoration: none;
+  color: ${color.white};
 `;

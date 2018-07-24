@@ -5,7 +5,6 @@ export const MainContainer = styled.div`
   box-sizing: border-box;
   max-width: 768px;
   margin: 0 auto;
-  border: 1px solid grey;
   grid-template-columns: 1fr;
 `;
 
