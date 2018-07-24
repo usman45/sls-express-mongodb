@@ -1,12 +1,12 @@
 export const TRANSLATIONS = {
   en: {
     button: {
-      callToAction: "Login"
+      callToAction: "Save"
     }
   },
   fi: {
     button: {
-      callToAction: "Kirjaudu sisään"
+      callToAction: "Tallenna"
     }
   }
 };
