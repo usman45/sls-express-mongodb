@@ -9,6 +9,7 @@ import {
 import { PrimaryButton } from "../../common/buttons";
 import { MainContainer } from "../../common/layout";
 import styled from "styled-components";
+import { i18n } from "../../app/i18n";
 
 export type NotesProps = {
   fetchNotes: () => void;
@@ -79,7 +80,7 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
             onChange={this.handleChange}
           />
           <PrimaryButton type="submit" value="Submit">
-            Add new
+            {i18n("login.callToAction")}
           </PrimaryButton>
         </StyledForm>
       </MainContainer>
@@ -103,6 +104,7 @@ export const notesScreenDispatchToProps = (dispatch: Dispatch<RootState>) => {
   };
 };
 
-export default connect(notesStateToProps, notesScreenDispatchToProps)(
-  NotesScreen
-);
+export default connect(
+  notesStateToProps,
+  notesScreenDispatchToProps
+)(NotesScreen);
