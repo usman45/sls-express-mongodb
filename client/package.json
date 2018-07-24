@@ -11,7 +11,8 @@
     "promise": "8.0.1",
     "query-string": "6.0.0",
     "raf": "3.4.0",
-    "whatwg-fetch": "2.0.4"
+    "whatwg-fetch": "2.0.4",
+    "react-router-dom": "^4.3.1"
   },
   "scripts": {
     "clean": "rimraf '.serverless' 'build'",
