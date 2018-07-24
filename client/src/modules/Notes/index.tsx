@@ -80,7 +80,7 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
             onChange={this.handleChange}
           />
           <PrimaryButton type="submit" value="Submit">
-            {i18n("login.callToAction")}
+            {i18n("button.callToAction")}
           </PrimaryButton>
         </StyledForm>
       </MainContainer>
