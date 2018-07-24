@@ -13,11 +13,17 @@ export const NavMenuItemWrapper = styled.li`
   border-radius: ${value.rounding};
   color: ${color.blue};
   flex: 1 0 auto;
+  display: block;
+  margin: 5px;
+  padding: 5px;
+  background: #efaeca;
 `;
 
 const ContentMenuLink = styled(Link)`
+  display: flex;
   width: 100%;
   color: ${color.blue};
+  justify-content: space-between;
 `;
 
 const ContentMenuTitle = styled.div`
