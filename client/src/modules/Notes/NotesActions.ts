@@ -3,10 +3,13 @@ import { RootState } from "../../app/state.interface";
 
 export const FETCH_NOTES_INIT_DATA_START = "FETCH_NOTES_INIT_DATA_START";
 export const FETCH_NOTES_INIT_DATA_SUCCESS = "FETCH_NOTES_INIT_DATA_SUCCESS";
-
 export const START_NOTES_REQUEST = "START_NOTES_REQUEST";
 export const SUCCESS_NOTES_REQUEST = "SUCCESS_NOTES_REQUEST";
 export const FAILED_NOTES_REQUEST = "FAILED_NOTES_REQUEST";
+export const START_NOTE_DELETE_REQUEST = "START_NOTE_DELETE_REQUEST";
+export const SUCCESS_NOTE_DELETE_REQUEST = "SUCCESS_NOTE_DELETE_REQUEST";
+export const FAILED_NOTE_DELETE_REQUEST = "FAILED_NOTE_DELETE_REQUEST";
+
 const NOTE_SERVICE_URL = "http://localhost:3000/api/notes";
 
 async function getNotes() {
@@ -66,7 +69,7 @@ export const sendNotesToApi = async (title, description): Promise<void> => {
   }
 };
 
-export function createSubmitNotesAction(title: string, description: string) {
+export const createSubmitNotesAction = (title: string, description: string) => {
   return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
     try {
       dispatch(setNotesStart());
@@ -78,4 +81,39 @@ export function createSubmitNotesAction(title: string, description: string) {
       dispatch(setNotesFailed());
     }
   };
-}
+};
+
+export const setDeleteNoteStart = () => ({
+  type: START_NOTE_DELETE_REQUEST,
+  payload: undefined
+});
+
+export const setNoteDeleteSuccess = () => ({
+  type: SUCCESS_NOTE_DELETE_REQUEST,
+  payload: undefined
+});
+
+export const setNoteDeleteFailed = () => ({
+  type: FAILED_NOTE_DELETE_REQUEST,
+  payload: undefined
+});
+
+export const sendNoteIdToApi = async (id): Promise<void> => {
+  return fetch(NOTE_SERVICE_URL + "/" + id, {
+    method: "delete"
+  }).then(response => response.json());
+};
+
+export const createDeleteNotesAction = (id: string) => {
+  return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
+    try {
+      dispatch(setDeleteNoteStart());
+      await sendNoteIdToApi(id);
+      dispatch(setNoteDeleteSuccess());
+    } catch (err) {
+      // tslint:disable-next-line:no-console
+      console.error(err);
+      dispatch(setNoteDeleteFailed());
+    }
+  };
+};

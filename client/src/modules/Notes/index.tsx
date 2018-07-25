@@ -3,6 +3,7 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { RootState } from "../../app/state.interface";
 import {
+  createDeleteNotesAction,
   createFetchDataFromBackendAction,
   createSubmitNotesAction
 } from "./NotesActions";
@@ -10,11 +11,13 @@ import { PrimaryButton } from "../../common/buttons";
 import { MainContainer } from "../../common/layout";
 import styled from "styled-components";
 import { i18n } from "../../app/i18n";
+import { color, spacing } from "../../assets/styles/styles";
 
 export type NotesProps = {
   fetchNotes: () => void;
   notes: any;
   handleSubmitNewNote: (title: string, description: string) => void;
+  handleDeleteNote: (id: string) => void;
 };
 
 export type ComponentState = {
@@ -32,6 +35,20 @@ export const StyledInput = styled.input`
   margin: 20px;
 `;
 
+export const NotesContainer = styled.ul``;
+
+export const NotesItem = styled.li`
+  border: 1px solid ${color.lightGray};
+  display: flex;
+`;
+
+const ItemContent = styled.div`
+  padding: ${spacing.small};
+  &:nth-child(3) {
+    margin-left: auto;
+  }
+`;
+
 export class NotesScreen extends React.Component<NotesProps, ComponentState> {
   constructor(props: NotesProps) {
     super(props);
@@ -44,14 +61,19 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
     this.props.fetchNotes();
   }
 
-  handleSubmit(event: React.FormEvent<EventTarget>) {
+  handleSubmit = (event: React.FormEvent<EventTarget>) => {
     event.preventDefault();
     this.props.handleSubmitNewNote(this.state.title, this.state.description);
-  }
+  };
 
-  handleChange(evt: any) {
+  handleChange = (evt: any) => {
     this.setState({ [evt.target.name]: evt.target.value });
-  }
+  };
+
+  deleteNote = note => {
+    console.log(note._id);
+    this.props.handleDeleteNote(note._id);
+  };
 
   render() {
     if (!this.props.notes) {
@@ -59,13 +81,24 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
     }
     return (
       <MainContainer>
-        <ul>
+        <NotesContainer>
           {this.props.notes.map(hit => (
-            <li key={hit._id}>
-              {hit.title} {hit.description}
-            </li>
+            <NotesItem key={hit._id}>
+              <ItemContent>{hit.title}</ItemContent>
+              <ItemContent>{hit.description}</ItemContent>
+              <ItemContent>
+                <button
+                  onClick={() => this.deleteNote(hit)}
+                  type="button"
+                  className="close"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </ItemContent>
+            </NotesItem>
           ))}
-        </ul>
+        </NotesContainer>
         <StyledForm onSubmit={this.handleSubmit}>
           <StyledInput
             type="text"
@@ -100,10 +133,14 @@ export const notesScreenDispatchToProps = (dispatch: Dispatch<RootState>) => {
     },
     handleSubmitNewNote: (title, description) => {
       dispatch(createSubmitNotesAction(title, description));
+    },
+    handleDeleteNote: id => {
+      dispatch(createDeleteNotesAction(id));
     }
   };
 };
 
-export default connect(notesStateToProps, notesScreenDispatchToProps)(
-  NotesScreen
-);
+export default connect(
+  notesStateToProps,
+  notesScreenDispatchToProps
+)(NotesScreen);
