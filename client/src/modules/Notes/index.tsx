@@ -26,15 +26,6 @@ export type ComponentState = {
   description: string;
 };
 
-export const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const StyledInput = styled.input`
-  margin: 20px;
-`;
-
 export const NotesContainer = styled.ul``;
 
 export const NotesItem = styled.li`
@@ -42,12 +33,25 @@ export const NotesItem = styled.li`
   display: flex;
 `;
 
-const ItemContent = styled.div`
+export const ItemContent = styled.div`
   padding: ${spacing.small};
   &:nth-child(3) {
     margin-left: auto;
   }
 `;
+
+export const AddNewNoteContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
+export const StyledForm = styled.form`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const StyledInput = styled.input``;
 
 export class NotesScreen extends React.Component<NotesProps, ComponentState> {
   constructor(props: NotesProps) {
@@ -71,7 +75,6 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
   };
 
   deleteNote = note => {
-    console.log(note._id);
     this.props.handleDeleteNote(note._id);
   };
 
@@ -81,6 +84,27 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
     }
     return (
       <MainContainer>
+        <AddNewNoteContainer>
+          <StyledForm onSubmit={this.handleSubmit}>
+            <label>Title:</label>
+            <StyledInput
+              type="text"
+              name="title"
+              value={this.state.title}
+              onChange={this.handleChange}
+            />
+            <label>Description:</label>
+            <StyledInput
+              type="text"
+              name="description"
+              value={this.state.description}
+              onChange={this.handleChange}
+            />
+            <PrimaryButton type="submit" value="Submit">
+              {i18n("button.callToAction")}
+            </PrimaryButton>
+          </StyledForm>
+        </AddNewNoteContainer>
         <NotesContainer>
           {this.props.notes.map(hit => (
             <NotesItem key={hit._id}>
@@ -99,23 +123,6 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
             </NotesItem>
           ))}
         </NotesContainer>
-        <StyledForm onSubmit={this.handleSubmit}>
-          <StyledInput
-            type="text"
-            name="title"
-            value={this.state.title}
-            onChange={this.handleChange}
-          />
-          <StyledInput
-            type="text"
-            name="description"
-            value={this.state.description}
-            onChange={this.handleChange}
-          />
-          <PrimaryButton type="submit" value="Submit">
-            {i18n("button.callToAction")}
-          </PrimaryButton>
-        </StyledForm>
       </MainContainer>
     );
   }
@@ -140,6 +147,7 @@ export const notesScreenDispatchToProps = (dispatch: Dispatch<RootState>) => {
   };
 };
 
-export default connect(notesStateToProps, notesScreenDispatchToProps)(
-  NotesScreen
-);
+export default connect(
+  notesStateToProps,
+  notesScreenDispatchToProps
+)(NotesScreen);
