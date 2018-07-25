@@ -10,19 +10,26 @@ import {
 import { PrimaryButton } from "../../common/buttons";
 import { MainContainer } from "../../common/layout";
 import { i18n } from "../../app/i18n";
-import {AddNewNoteContainer, ItemContent, NotesContainer, NotesItem, StyledForm, StyledInput} from "./_view";
+import {
+  AddNewNoteContainer,
+  ItemContent,
+  NotesContainer,
+  NotesItem,
+  StyledForm,
+  StyledInput
+} from "./_view";
 
 export type NotesProps = {
-    fetchNotes: () => void;
-    notes: any;
-    handleSubmitNewNote: (title: string, description: string) => void;
-    handleDeleteNote: (id: string) => void;
+  fetchNotes: () => void;
+  notes: any;
+  handleSubmitNewNote: (title: string, description: string) => void;
+  handleDeleteNote: (id: string) => void;
 };
 
 export type ComponentState = {
-    isLoading: boolean;
-    title: string;
-    description: string;
+  isLoading: boolean;
+  title: string;
+  description: string;
 };
 
 export class NotesScreen extends React.Component<NotesProps, ComponentState> {
@@ -80,22 +87,26 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
           </StyledForm>
         </AddNewNoteContainer>
         <NotesContainer>
-          {this.props.notes.length ? this.props.notes.map(hit => (
-            <NotesItem key={hit._id}>
-              <ItemContent>{hit.title}</ItemContent>
-              <ItemContent>{hit.description}</ItemContent>
-              <ItemContent>
-                <button
-                  onClick={() => this.deleteNote(hit)}
-                  type="button"
-                  className="close"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </ItemContent>
-            </NotesItem>
-          )): <h1>No data</h1>}
+          {this.props.notes.length ? (
+            this.props.notes.map(hit => (
+              <NotesItem key={hit._id}>
+                <ItemContent>{hit.title}</ItemContent>
+                <ItemContent>{hit.description}</ItemContent>
+                <ItemContent>
+                  <button
+                    onClick={() => this.deleteNote(hit)}
+                    type="button"
+                    className="close"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </ItemContent>
+              </NotesItem>
+            ))
+          ) : (
+            <h1>No data</h1>
+          )}
         </NotesContainer>
       </MainContainer>
     );

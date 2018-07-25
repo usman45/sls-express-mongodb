@@ -1,4 +1,4 @@
-import {color, spacing} from "../../../assets/styles/styles";
+import { color, spacing } from "../../../assets/styles/styles";
 import styled from "styled-components";
 
 export const NotesContainer = styled.ul``;
