@@ -12,43 +12,10 @@ export const FAILED_NOTE_DELETE_REQUEST = "FAILED_NOTE_DELETE_REQUEST";
 
 const NOTE_SERVICE_URL = "http://localhost:3000/api/notes";
 
-async function getNotes() {
+export const getNotes = async () => {
   const response = await fetch(NOTE_SERVICE_URL);
   return await response.json();
-}
-
-export const fetchConsentInitDataStart = () => ({
-  type: FETCH_NOTES_INIT_DATA_START,
-  payload: undefined
-});
-
-export const fetchNotesInitDataSuccess = notes => ({
-  type: FETCH_NOTES_INIT_DATA_SUCCESS,
-  payload: notes
-});
-
-export function createFetchDataFromBackendAction() {
-  return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
-    dispatch(fetchConsentInitDataStart());
-    const notes: any = await getNotes();
-    dispatch(fetchNotesInitDataSuccess(notes));
-  };
-}
-
-export const setNotesStart = () => ({
-  type: START_NOTES_REQUEST,
-  payload: undefined
-});
-
-export const setNotesSuccess = () => ({
-  type: SUCCESS_NOTES_REQUEST,
-  payload: undefined
-});
-
-export const setNotesFailed = () => ({
-  type: FAILED_NOTES_REQUEST,
-  payload: undefined
-});
+};
 
 export const sendNotesToApi = async (title, description): Promise<void> => {
   const apiResponse = await fetch(NOTE_SERVICE_URL, {
@@ -69,19 +36,36 @@ export const sendNotesToApi = async (title, description): Promise<void> => {
   }
 };
 
-export const createSubmitNotesAction = (title: string, description: string) => {
-  return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
-    try {
-      dispatch(setNotesStart());
-      await sendNotesToApi(title, description);
-      dispatch(setNotesSuccess());
-    } catch (err) {
-      // tslint:disable-next-line:no-console
-      console.error(err);
-      dispatch(setNotesFailed());
-    }
-  };
+export const sendNoteIdToApi = async (id): Promise<void> => {
+  return fetch(NOTE_SERVICE_URL + "/" + id, {
+    method: "delete"
+  }).then(response => response.json());
 };
+
+export const fetchConsentInitDataStart = () => ({
+  type: FETCH_NOTES_INIT_DATA_START,
+  payload: undefined
+});
+
+export const fetchNotesInitDataSuccess = notes => ({
+  type: FETCH_NOTES_INIT_DATA_SUCCESS,
+  payload: notes
+});
+
+export const setNotesStart = () => ({
+  type: START_NOTES_REQUEST,
+  payload: undefined
+});
+
+export const setNotesSuccess = () => ({
+  type: SUCCESS_NOTES_REQUEST,
+  payload: undefined
+});
+
+export const setNotesFailed = () => ({
+  type: FAILED_NOTES_REQUEST,
+  payload: undefined
+});
 
 export const setDeleteNoteStart = () => ({
   type: START_NOTE_DELETE_REQUEST,
@@ -98,10 +82,27 @@ export const setNoteDeleteFailed = () => ({
   payload: undefined
 });
 
-export const sendNoteIdToApi = async (id): Promise<void> => {
-  return fetch(NOTE_SERVICE_URL + "/" + id, {
-    method: "delete"
-  }).then(response => response.json());
+export const createFetchDataFromBackendAction = () => {
+  return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
+    dispatch(fetchConsentInitDataStart());
+    const notes: any = await getNotes();
+    dispatch(fetchNotesInitDataSuccess(notes));
+  };
+};
+
+export const createSubmitNotesAction = (title: string, description: string) => {
+  return async (dispatch: Dispatch<RootState>, getState: () => RootState) => {
+    try {
+      dispatch(setNotesStart());
+      await sendNotesToApi(title, description);
+      dispatch(setNotesSuccess());
+      dispatch(createFetchDataFromBackendAction());
+    } catch (err) {
+      // tslint:disable-next-line:no-console
+      console.error(err);
+      dispatch(setNotesFailed());
+    }
+  };
 };
 
 export const createDeleteNotesAction = (id: string) => {
@@ -110,6 +111,7 @@ export const createDeleteNotesAction = (id: string) => {
       dispatch(setDeleteNoteStart());
       await sendNoteIdToApi(id);
       dispatch(setNoteDeleteSuccess());
+      dispatch(createFetchDataFromBackendAction());
     } catch (err) {
       // tslint:disable-next-line:no-console
       console.error(err);

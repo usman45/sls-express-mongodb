@@ -9,49 +9,21 @@ import {
 } from "./NotesActions";
 import { PrimaryButton } from "../../common/buttons";
 import { MainContainer } from "../../common/layout";
-import styled from "styled-components";
 import { i18n } from "../../app/i18n";
-import { color, spacing } from "../../assets/styles/styles";
+import {AddNewNoteContainer, ItemContent, NotesContainer, NotesItem, StyledForm, StyledInput} from "./_view";
 
 export type NotesProps = {
-  fetchNotes: () => void;
-  notes: any;
-  handleSubmitNewNote: (title: string, description: string) => void;
-  handleDeleteNote: (id: string) => void;
+    fetchNotes: () => void;
+    notes: any;
+    handleSubmitNewNote: (title: string, description: string) => void;
+    handleDeleteNote: (id: string) => void;
 };
 
 export type ComponentState = {
-  isLoading: boolean;
-  title: string;
-  description: string;
+    isLoading: boolean;
+    title: string;
+    description: string;
 };
-
-export const NotesContainer = styled.ul``;
-
-export const NotesItem = styled.li`
-  border: 1px solid ${color.lightGray};
-  display: flex;
-`;
-
-export const ItemContent = styled.div`
-  padding: ${spacing.small};
-  &:nth-child(3) {
-    margin-left: auto;
-  }
-`;
-
-export const AddNewNoteContainer = styled.div`
-  margin-bottom: 10px;
-`;
-
-export const StyledForm = styled.form`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const StyledInput = styled.input``;
 
 export class NotesScreen extends React.Component<NotesProps, ComponentState> {
   constructor(props: NotesProps) {
@@ -90,6 +62,7 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
             <StyledInput
               type="text"
               name="title"
+              placeholder={"Title"}
               value={this.state.title}
               onChange={this.handleChange}
             />
@@ -97,6 +70,7 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
             <StyledInput
               type="text"
               name="description"
+              placeholder={"Description"}
               value={this.state.description}
               onChange={this.handleChange}
             />
@@ -106,7 +80,7 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
           </StyledForm>
         </AddNewNoteContainer>
         <NotesContainer>
-          {this.props.notes.map(hit => (
+          {this.props.notes.length ? this.props.notes.map(hit => (
             <NotesItem key={hit._id}>
               <ItemContent>{hit.title}</ItemContent>
               <ItemContent>{hit.description}</ItemContent>
@@ -121,7 +95,7 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
                 </button>
               </ItemContent>
             </NotesItem>
-          ))}
+          )): <h1>No data</h1>}
         </NotesContainer>
       </MainContainer>
     );
