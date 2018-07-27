@@ -25,5 +25,5 @@ if (typeof window.__REDUX_DEVTOOLS_EXTENSION__ === "function") {
 
 storeEnhancers.unshift(applyMiddleware(...middlewares));
 
-export default (l): Store<RootState> =>
+export default (): Store<RootState> =>
   createStore(rootReducer(), compose(...storeEnhancers));

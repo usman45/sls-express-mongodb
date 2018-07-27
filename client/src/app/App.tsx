@@ -10,7 +10,7 @@ import { Redirect, Route, RouteProps, Router, Switch } from "react-router";
 import NotesScreen from "../modules/Notes";
 import createHistory from "history/createBrowserHistory";
 import Footer from "../modules/Footer";
-const store: Store<RootState> = configureStore(undefined as any);
+const store: Store<RootState> = configureStore();
 
 const history = createHistory();
 
