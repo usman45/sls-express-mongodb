@@ -20,6 +20,10 @@ describe("NotesScreen", () => {
     );
   });
 
+  it("should test that component is defined", () => {
+    expect(notesScreen.find(NotesScreen)).toBeDefined();
+  });
+
   it("should start fetching init data", () => {
     expect(notesScreen.find(NotesScreen).exists()).toBeTruthy();
   });
