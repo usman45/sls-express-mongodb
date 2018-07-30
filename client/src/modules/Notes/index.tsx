@@ -88,13 +88,13 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
         </AddNewNoteContainer>
         <NotesContainer>
           {this.props.notes.length ? (
-            this.props.notes.map(hit => (
-              <NotesItem key={hit._id}>
-                <ItemContent>{hit.title}</ItemContent>
-                <ItemContent>{hit.description}</ItemContent>
+            this.props.notes.map((note, key) => (
+              <NotesItem key={key}>
+                <ItemContent>{note.title}</ItemContent>
+                <ItemContent>{note.description}</ItemContent>
                 <ItemContent>
                   <button
-                    onClick={() => this.deleteNote(hit)}
+                    onClick={() => this.deleteNote(note)}
                     type="button"
                     className="close"
                     aria-label="Close"
