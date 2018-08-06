@@ -16,7 +16,10 @@ export const ItemContent = styled.div`
 `;
 
 export const AddNewNoteContainer = styled.div`
-  margin-bottom: 10px;
+  display: flex;
+  min-height: 100px;
+  border: 1px solid lightgray;
+  box-shadow: 1px 1px 10px #000000;
 `;
 
 export const StyledForm = styled.form`
@@ -24,6 +27,8 @@ export const StyledForm = styled.form`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  margin: 20px;
 `;
 
 export const StyledInput = styled.input``;
