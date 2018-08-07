@@ -20,6 +20,8 @@ export const AddNewNoteContainer = styled.div`
   min-height: 100px;
   border: 1px solid lightgray;
   box-shadow: 1px 1px 10px #000000;
+  flex-direction: column;
+  padding: 20px;
 `;
 
 export const StyledForm = styled.form`
@@ -27,8 +29,6 @@ export const StyledForm = styled.form`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin: 20px;
 `;
 
 export const StyledInput = styled.input``;

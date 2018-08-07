@@ -64,6 +64,7 @@ export class NotesScreen extends React.Component<NotesProps, ComponentState> {
     return (
       <MainContainer>
         <AddNewNoteContainer>
+            <h2>Add new note</h2>
           <StyledForm onSubmit={this.handleSubmit}>
             <label>Title:</label>
             <StyledInput
