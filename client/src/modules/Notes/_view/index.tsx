@@ -1,11 +1,17 @@
 import { color, spacing } from "../../../assets/styles/styles";
 import styled from "styled-components";
 
-export const NotesContainer = styled.ul``;
+export const NotesContainer = styled.ul`
+  margin-top: 20px;
+`;
 
 export const NotesItem = styled.li`
   border: 1px solid ${color.lightGray};
   display: flex;
+`;
+
+export const StyledSpan = styled.span`
+  color: red;
 `;
 
 export const ItemContent = styled.div`
