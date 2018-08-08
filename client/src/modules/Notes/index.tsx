@@ -11,12 +11,13 @@ import { PrimaryButton } from "../../common/buttons";
 import { MainContainer } from "../../common/layout";
 import { i18n } from "../../app/i18n";
 import {
-    AddNewNoteContainer,
-    ItemContent,
-    NotesContainer,
-    NotesItem,
-    StyledForm,
-    StyledInput, StyledSpan
+  AddNewNoteContainer,
+  ItemContent,
+  NotesContainer,
+  NotesItem,
+  StyledForm,
+  StyledInput,
+  StyledSpan
 } from "./_view";
 
 export type NotesProps = {
