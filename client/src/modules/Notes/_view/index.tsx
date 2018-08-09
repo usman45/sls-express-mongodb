@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const NotesContainer = styled.ul`
   margin-top: 20px;
+  background-color: #fde6f2;
 `;
 
 export const NotesItem = styled.li`
